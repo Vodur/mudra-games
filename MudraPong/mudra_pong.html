@@ -7,10 +7,18 @@
     <link rel="stylesheet" href="mudra_pong.css">
 </head>
 <body>
-    <h1>Mudra Pong</h1>
-    <div class="scoreboard">Score: <span id="score">0</span></div>
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
-    <button id="startButton">Start Game</button>
+    <canvas id="gameCanvas" class="hidden"></canvas>
+    <div id="startScreen">
+        <h1>Mudra Pong</h1>
+        <div>
+            <button class="menuButton" onclick="startGame()">Start Game</button>
+        </div>
+    </div>
+    <div id="gameOver" class="hidden">
+        <h1>Game Over</h1>
+        <p>Score: <span id="finalScore">0</span></p>
+        <button class="menuButton" onclick="restartGame()">Play Again</button>
+    </div>
     <script src="mudra_pong.js"></script>
 </body>
 </html>

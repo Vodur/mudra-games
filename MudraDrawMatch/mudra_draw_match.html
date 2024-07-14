@@ -7,29 +7,20 @@
     <link rel="stylesheet" href="mudra_draw_match.css">
 </head>
 <body>
-    <div id="game-container">
-        <div id="instructions">
-            <h1>Mudra Draw Match</h1>
-            <p>Draw the given shape as closely as possible to score points.</p>
-            <button id="start-game-btn">Start Game</button>
+    <div id="gameContainer" class="hidden">
+        <canvas id="predefinedCanvas" class="gameCanvas hidden"></canvas>
+        <canvas id="drawingCanvas" class="gameCanvas hidden"></canvas>
+    </div>
+    <div id="startScreen">
+        <h1>Mudra Draw Match</h1>
+        <div>
+            <button class="menuButton" id="startGameButton">Start Game</button>
         </div>
-        <div id="game" style="display: none;">
-            <div id="canvas-container">
-                <div>
-                    <h3>Predefined Image</h3>
-                    <canvas id="predefined-canvas" width="400" height="300"></canvas>
-                </div>
-                <div>
-                    <h3>Your Drawing</h3>
-                    <canvas id="drawing-canvas" width="400" height="300"></canvas>
-                </div>
-            </div>
-            <button id="submit-drawing-btn">Submit Drawing</button>
-            <div id="score" style="display: none;">
-                <p>Your Score: <span id="score-value"></span></p>
-                <button id="restart-game-btn">Restart Game</button>
-            </div>
-        </div>
+    </div>
+    <div id="gameOver" class="hidden">
+        <h1>Game Over</h1>
+        <p>Score: <span id="finalScore">0</span></p>
+        <button class="menuButton" id="restartGameButton">Play Again</button>
     </div>
     <script src="mudra_draw_match.js"></script>
 </body>

@@ -7,11 +7,16 @@
     <link rel="stylesheet" href="mudra_click.css">
 </head>
 <body>
-    <div id="gameArea" class="hidden">
-        <div id="clickableObject"></div>
+    <canvas id="gameCanvas" class="hidden"></canvas>
+    <div id="startScreen">
+        <h1>Mudra Click</h1>
+        <button class="menuButton" id="startButton">Start Game</button>
     </div>
-    <div id="scoreBoard" class="hidden">Score: <span id="score">0</span></div>
-    <button id="startButton">Start Game</button>
+    <div id="gameOver" class="hidden">
+        <h1>Game Over</h1>
+        <p>Score: <span id="finalScore">0</span></p>
+        <button class="menuButton" onclick="restartGame()">Play Again</button>
+    </div>
 
     <audio id="clickSound" src="click.mp3"></audio>
     <audio id="endSound" src="end.mp3"></audio>

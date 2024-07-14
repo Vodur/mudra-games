@@ -1,6 +1,8 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
-const startButton = document.getElementById('startButton');
+const startScreen = document.getElementById('startScreen');
+const gameOverScreen = document.getElementById('gameOver');
+const finalScoreDisplay = document.getElementById('finalScore');
 let animationId;
 
 let paddleWidth = 100;
@@ -17,7 +19,6 @@ let score = 0;
 let isGameRunning = false;
 
 document.addEventListener('mousemove', movePaddle);
-startButton.addEventListener('click', startGame);
 
 function resetGame() {
     score = 0;
@@ -26,21 +27,17 @@ function resetGame() {
     ballSpeedX = 4;
     ballSpeedY = -4;
     paddleX = (canvas.width - paddleWidth) / 2;
-    document.getElementById('score').textContent = score;
 }
 
 function startGame() {
-    if (!isGameRunning) {
-        resetGame();
-        isGameRunning = true;
-        startButton.textContent = 'Restart Game';
-        draw();
-    } else {
-        cancelAnimationFrame(animationId);
-        resetGame();
-        isGameRunning = true;
-        draw();
-    }
+    startScreen.classList.add('hidden');
+    gameOverScreen.classList.add('hidden');
+    canvas.classList.remove('hidden');
+    canvas.width = window.innerWidth * 0.8;
+    canvas.height = window.innerHeight * 0.6;
+    resetGame();
+    isGameRunning = true;
+    draw();
 }
 
 function movePaddle(event) {
@@ -66,10 +63,6 @@ function drawBall() {
     ctx.closePath();
 }
 
-function drawScore() {
-    document.getElementById('score').textContent = score;
-}
-
 function updateBallPosition() {
     ballX += ballSpeedX;
     ballY += ballSpeedY;
@@ -86,11 +79,9 @@ function updateBallPosition() {
             ballSpeedX *= 1.1;
             ballSpeedY *= 1.1;
         } else {
-            cancelAnimationFrame(animationId);
             isGameRunning = false;
-            startButton.textContent = 'Start Game';
-            alert('GAME OVER');
-            resetGame();
+            cancelAnimationFrame(animationId);
+            gameOver();
         }
     }
 }
@@ -99,9 +90,19 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawPaddle();
     drawBall();
-    drawScore();
     updateBallPosition();
     if (isGameRunning) {
         animationId = requestAnimationFrame(draw);
     }
+}
+
+function gameOver() {
+    canvas.classList.add('hidden');
+    gameOverScreen.classList.remove('hidden');
+    finalScoreDisplay.textContent = score;
+}
+
+function restartGame() {
+    gameOverScreen.classList.add('hidden');
+    startScreen.classList.remove('hidden');
 }
