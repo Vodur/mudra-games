@@ -25,13 +25,17 @@
     
     <div id="menu">
         <div>
-            <button class="menuButton" onclick="location.href='../MudraClick/mudra_click.html'">Mudra Click</button>
-            <button class="menuButton" onclick="location.href='../MudraDrawMatch/mudra_draw_match.html'">Mudra Draw Match</button>
-            <button class="menuButton" onclick="location.href='../MudraPong/mudra_pong.html'">Mudra Pong</button>
-            <button class="menuButton" onclick="location.href='../MudraShot/mudra_shot.html'">Mudra Shot</button>
+            <button id="mudraClickButton" class="menuButton" onclick="location.href='../MudraClick/mudra_click.html'">Mudra Click</button>
+            <button id="mudraDrawMatchButton" class="menuButton" onclick="location.href='../MudraDrawMatch/mudra_draw_match.html'">Mudra Draw Match</button>
+            <button id="mudraPongButton" class="menuButton" onclick="location.href='../MudraPong/mudra_pong.html'">Mudra Pong</button>
+            <button id="mudraShotButton" class="menuButton" onclick="location.href='../MudraShot/mudra_shot.html'">Mudra Shot</button>
         </div>
     </div>
 
     <script src="mudra_shot.js"></script>
+    <script>
+        // Highlight the active game
+        document.getElementById('mudraShotButton').classList.add('active');
+    </script>
 </body>
 </html>

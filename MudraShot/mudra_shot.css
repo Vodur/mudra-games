@@ -69,6 +69,10 @@ button.menuButton:active {
     transform: scale(1.05);
 }
 
+button.menuButton.active {
+    background: #2ecc71;
+}
+
 h1 {
     font-size: 36px;
     margin-bottom: 20px;
