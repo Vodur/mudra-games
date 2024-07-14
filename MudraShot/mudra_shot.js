@@ -5,8 +5,8 @@ const gameOverElement = document.getElementById('gameOver');
 const winnerElement = document.getElementById('winner');
 const statsElement = document.getElementById('stats');
 
-let CANVAS_WIDTH = window.innerWidth;
-let CANVAS_HEIGHT = window.innerHeight;
+let CANVAS_WIDTH = window.innerWidth * 0.8;
+let CANVAS_HEIGHT = window.innerHeight * 0.8;
 
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
@@ -29,7 +29,7 @@ class Player {
         this.color = color;
         this.health = playerHealth;
         this.maxHealth = playerHealth;
-        this.targetX = x; // Target position for smooth movement
+        this.targetX = x;
     }
 
     update(mouse) {
@@ -37,7 +37,6 @@ class Player {
         if (this.targetX < this.size) this.targetX = this.size;
         if (this.targetX > canvas.width - this.size) this.targetX = canvas.width - this.size;
 
-        // Smooth movement towards target position
         this.x += (this.targetX - this.x) * 0.1;
     }
 
@@ -84,7 +83,7 @@ class Enemy {
         this.directionChangeInterval = this.getRandomShootInterval();
         this.lastDirectionChangeTime = Date.now();
         this.dx = Math.random() < 0.5 ? -this.speed : this.speed;
-        this.targetX = this.x; // Target position for smooth movement
+        this.targetX = this.x;
     }
 
     getRandomShootInterval() {
@@ -105,7 +104,6 @@ class Enemy {
             this.targetX += this.dx;
         }
 
-        // Smooth movement towards target position
         this.x += (this.targetX - this.x) * 0.1;
 
         this.shoot();
@@ -256,8 +254,8 @@ canvas.addEventListener('click', () => {
 });
 
 window.addEventListener('resize', () => {
-    CANVAS_WIDTH = window.innerWidth;
-    CANVAS_HEIGHT = window.innerHeight;
+    CANVAS_WIDTH = window.innerWidth * 0.8;
+    CANVAS_HEIGHT = window.innerHeight * 0.8;
     canvas.width = CANVAS_WIDTH;
     canvas.height = CANVAS_HEIGHT;
     SPEED_SCALE = updateSpeedScale();

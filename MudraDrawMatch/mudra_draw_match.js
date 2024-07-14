@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function startGame() {
+        resetScore();
         startScreen.classList.add('hidden');
         gameOverScreen.classList.add('hidden');
         gameContainer.classList.remove('hidden');
@@ -65,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function restartGame() {
+        resetScore();
         gameOverScreen.classList.add('hidden');
         startScreen.classList.remove('hidden');
         gameContainer.classList.add('hidden');
@@ -77,6 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
         drawShape(predefinedCtx, currentShape);
     }
 
+    function resetScore() {
+        finalScoreDisplay.textContent = '0';
+    }
+
     function calculateScore(predefinedCtx, drawingCtx) {
         const predefinedImageData = predefinedCtx.getImageData(0, 0, predefinedCanvas.width, predefinedCanvas.height);
         const drawingImageData = drawingCtx.getImageData(0, 0, drawingCanvas.width, drawingCanvas.height);
@@ -87,32 +93,32 @@ document.addEventListener('DOMContentLoaded', () => {
         let drawingPixels = 0;
 
         for (let i = 0; i < predefinedImageData.data.length; i += 4) {
-            const predefinedPixel = predefinedImageData.data.slice(i, i + 4);
-            const drawingPixel = drawingImageData.data.slice(i, i + 4);
+            const predefinedPixelAlpha = predefinedImageData.data[i + 3];
+            const drawingPixelAlpha = drawingImageData.data[i + 3];
 
-            const predefinedIsDrawn = predefinedPixel[3] > 0; // Check alpha channel
-            const drawingIsDrawn = drawingPixel[3] > 0; // Check alpha channel
-
-            if (predefinedIsDrawn) {
+            if (predefinedPixelAlpha > 0) {
                 predefinedPixels++;
             }
-            if (drawingIsDrawn) {
+            if (drawingPixelAlpha > 0) {
                 drawingPixels++;
             }
-            if (predefinedIsDrawn && drawingIsDrawn) {
-                const colorDifference = Math.abs(predefinedPixel[0] - drawingPixel[0]) +
-                    Math.abs(predefinedPixel[1] - drawingPixel[1]) +
-                    Math.abs(predefinedPixel[2] - drawingPixel[2]);
-                if (colorDifference < 150) { // Increase tolerance for color difference
+            if (predefinedPixelAlpha > 0 && drawingPixelAlpha > 0) {
+                const colorDifference = Math.abs(predefinedImageData.data[i] - drawingImageData.data[i]) +
+                    Math.abs(predefinedImageData.data[i + 1] - drawingImageData.data[i + 1]) +
+                    Math.abs(predefinedImageData.data[i + 2] - drawingImageData.data[i + 2]);
+                if (colorDifference < 300) { // Increase tolerance for color difference
                     matchingPixels++;
                 }
             }
         }
 
         const matchScore = (matchingPixels / predefinedPixels) * 100;
-        const coverageScore = (drawingPixels / predefinedPixels) * 100;
+        const coverageScore = (matchingPixels / drawingPixels) * 100;
+        const baseScore = 50; // Base score to ensure a decent score
 
-        return (matchScore + coverageScore) / 2;
+        const finalScore = (matchScore + coverageScore) / 2 + baseScore;
+
+        return Math.min(finalScore, 100); // Ensure score does not exceed 100%
     }
 
     drawingCanvas.addEventListener('mousedown', () => {
