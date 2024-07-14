@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mudra Draw Match</title>
+    <link rel="stylesheet" href="mudra_draw_match.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="instructions">
+            <h1>Mudra Draw Match</h1>
+            <p>Draw the given shape as closely as possible to score points.</p>
+            <button id="start-game-btn">Start Game</button>
+        </div>
+        <div id="game" style="display: none;">
+            <div id="canvas-container">
+                <div>
+                    <h3>Predefined Image</h3>
+                    <canvas id="predefined-canvas" width="400" height="300"></canvas>
+                </div>
+                <div>
+                    <h3>Your Drawing</h3>
+                    <canvas id="drawing-canvas" width="400" height="300"></canvas>
+                </div>
+            </div>
+            <button id="submit-drawing-btn">Submit Drawing</button>
+            <div id="score" style="display: none;">
+                <p>Your Score: <span id="score-value"></span></p>
+                <button id="restart-game-btn">Restart Game</button>
+            </div>
+        </div>
+    </div>
+    <script src="mudra_draw_match.js"></script>
+</body>
+</html>

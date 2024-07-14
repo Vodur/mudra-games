@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mudra Shot</title>
+    <link rel="stylesheet" href="mudra_shot.css">
+</head>
+<body>
+    <canvas id="gameCanvas" class="hidden"></canvas>
+    <div id="startScreen">
+        <h1>Mudra Shot</h1>
+        <div>
+            <button class="menuButton" onclick="startGame('easy')">Easy</button>
+            <button class="menuButton" onclick="startGame('medium')">Medium</button>
+            <button class="menuButton" onclick="startGame('hard')">Hard</button>
+        </div>
+    </div>
+    <div id="gameOver" class="hidden">
+        <h1>Game Over</h1>
+        <p>Winner: <span id="winner">Player</span></p>
+        <p id="stats"></p>
+        <button class="menuButton" onclick="restartGame()">Play Again</button>
+    </div>
+    <script src="mudra_shot.js"></script>
+</body>
+</html>

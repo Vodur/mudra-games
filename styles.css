@@ -1,0 +1,64 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #0c1e50;  /* Solid background color */
+    flex-direction: column;
+    font-family: 'Arial', sans-serif;
+    color: white;
+    text-align: center;
+}
+
+.menu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.menu h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #ecf0f1;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.menu li {
+    margin: 10px 0;
+}
+
+.menu a.menuButton {
+    display: inline-block;
+    padding: 15px 30px;  /* Increase padding for larger buttons */
+    font-size: 20px;  /* Increase font size */
+    cursor: pointer;
+    background: #3498db;  /* Brighter background color for buttons */
+    border: none;
+    border-radius: 5px;
+    color: white;
+    margin: 10px;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.menu a.menuButton:hover {
+    background: #2980b9;  /* Darker hover background */
+    transform: scale(1.1);
+}
+
+.menu a.menuButton:active {
+    transform: scale(1.05);
+}
