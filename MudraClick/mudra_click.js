@@ -8,6 +8,9 @@ const gameOverElement = document.getElementById('gameOver');
 const finalScoreElement = document.getElementById('finalScore');
 const clickSound = document.getElementById('clickSound');
 const endSound = document.getElementById('endSound');
+const timeLeftElement = document.getElementById('timeLeft');
+const scoreElement = document.getElementById('score');
+const gameInfo = document.getElementById('gameInfo');
 
 // Set fixed canvas size
 const CANVAS_WIDTH = 800;
@@ -32,14 +35,17 @@ function startGame() {
     startScreen.classList.add('hidden');
     gameOverElement.classList.add('hidden');
     canvas.classList.remove('hidden');
+    gameInfo.classList.remove('hidden');
     gameInterval = setInterval(updateGame, 1000);
     canvas.addEventListener('click', handleClick);
+    updateGameInfo();
     drawObject();
 }
 
 function updateGame() {
     if (timeLeft > 0) {
         timeLeft--;
+        updateGameInfo();
     } else {
         endGame();
     }
@@ -49,6 +55,7 @@ function endGame() {
     clearInterval(gameInterval);
     canvas.removeEventListener('click', handleClick);
     canvas.classList.add('hidden');
+    gameInfo.classList.add('hidden');
     gameOverElement.classList.remove('hidden');
     finalScoreElement.textContent = score;
     endSound.play();
@@ -68,6 +75,7 @@ function handleClick(event) {
         clickSound.play();
         moveObject();
         drawObject();
+        updateGameInfo();
     }
 }
 
@@ -88,6 +96,11 @@ function drawObject() {
     ctx.strokeStyle = 'black';
     ctx.lineWidth = 2;
     ctx.stroke();
+}
+
+function updateGameInfo() {
+    timeLeftElement.textContent = `Time Left: ${timeLeft}`;
+    scoreElement.textContent = `Score: ${score}`;
 }
 
 function restartGame() {

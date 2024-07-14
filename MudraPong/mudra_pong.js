@@ -3,6 +3,8 @@ const ctx = canvas.getContext('2d');
 const startScreen = document.getElementById('startScreen');
 const gameOverScreen = document.getElementById('gameOver');
 const finalScoreDisplay = document.getElementById('finalScore');
+const gameInfo = document.getElementById('gameInfo');
+const scoreElement = document.getElementById('score');
 let animationId;
 
 let paddleWidth = 100;
@@ -12,8 +14,8 @@ let paddleX = (canvas.width - paddleWidth) / 2;
 let ballRadius = 10;
 let ballX = canvas.width / 2;
 let ballY = canvas.height - 30;
-let ballSpeedX = 4; // increased initial speed
-let ballSpeedY = -4; // increased initial speed
+let ballSpeedX = 4;
+let ballSpeedY = -4;
 
 let score = 0;
 let isGameRunning = false;
@@ -27,12 +29,14 @@ function resetGame() {
     ballSpeedX = 4;
     ballSpeedY = -4;
     paddleX = (canvas.width - paddleWidth) / 2;
+    updateScore();
 }
 
 function startGame() {
     startScreen.classList.add('hidden');
     gameOverScreen.classList.add('hidden');
     canvas.classList.remove('hidden');
+    gameInfo.classList.remove('hidden');
     canvas.width = window.innerWidth * 0.8;
     canvas.height = window.innerHeight * 0.6;
     resetGame();
@@ -78,6 +82,7 @@ function updateBallPosition() {
             score++;
             ballSpeedX *= 1.1;
             ballSpeedY *= 1.1;
+            updateScore();
         } else {
             isGameRunning = false;
             cancelAnimationFrame(animationId);
@@ -96,8 +101,13 @@ function draw() {
     }
 }
 
+function updateScore() {
+    scoreElement.textContent = `Score: ${score}`;
+}
+
 function gameOver() {
     canvas.classList.add('hidden');
+    gameInfo.classList.add('hidden');
     gameOverScreen.classList.remove('hidden');
     finalScoreDisplay.textContent = score;
 }
@@ -106,3 +116,7 @@ function restartGame() {
     gameOverScreen.classList.add('hidden');
     startScreen.classList.remove('hidden');
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('.menuButton').addEventListener('click', startGame);
+});
