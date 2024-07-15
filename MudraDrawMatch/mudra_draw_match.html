@@ -23,6 +23,13 @@
         <button class="menuButton" id="restartGameButton">Play Again</button>
     </div>
     
+    <div id="instructions" class="hidden">
+        <h1>How to Play</h1>
+        <p>Try to match the shape given while drawing with the Mudra band.</p>
+        <p>Use your mouse to draw on the canvas and try to recreate the shape as accurately as possible.</p>
+        <p>When you are done, click "Submit Drawing" to see your score.</p>
+    </div>
+
     <div id="menu">
         <div>
             <button id="mudraClickButton" class="menuButton" onclick="location.href='../MudraClick/mudra_click.html'">Mudra Click</button>
@@ -33,7 +40,7 @@
     </div>
 
     <script src="mudra_draw_match.js"></script>
-	<script>
+    <script>
         // Highlight the active game
         document.getElementById('mudraDrawMatchButton').classList.add('active');
     </script>

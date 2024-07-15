@@ -9,8 +9,9 @@
 <body>
     <canvas id="gameCanvas" class="hidden"></canvas>
     <div id="gameInfo" class="hidden">
-        <p id="timeLeft">Time Left: 30</p>
-        <p id="score">Score: 0</p>
+        <div id="timeBarContainer">
+            <div id="timeBar"></div>
+        </div>
     </div>
     <div id="startScreen">
         <h1>Mudra Click</h1>
@@ -22,6 +23,13 @@
         <button class="menuButton" onclick="restartGame()">Play Again</button>
     </div>
     
+    <div id="instructions" class="hidden">
+        <h1>How to Play</h1>
+        <p>Click on the red dot as quickly as you can.</p>
+        <p>Each click makes the dot smaller and the game harder.</p>
+        <p>You have 30 seconds to score as many points as possible!</p>
+    </div>
+
     <div id="menu">
         <div>
             <button id="mudraClickButton" class="menuButton" onclick="location.href='../MudraClick/mudra_click.html'">Mudra Click</button>
@@ -35,7 +43,7 @@
     <audio id="endSound" src="end.mp3"></audio>
 
     <script src="mudra_click.js"></script>
-	<script>
+    <script>
         // Highlight the active game
         document.getElementById('mudraClickButton').classList.add('active');
     </script>

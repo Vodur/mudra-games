@@ -8,9 +8,8 @@ const gameOverElement = document.getElementById('gameOver');
 const finalScoreElement = document.getElementById('finalScore');
 const clickSound = document.getElementById('clickSound');
 const endSound = document.getElementById('endSound');
-const timeLeftElement = document.getElementById('timeLeft');
-const scoreElement = document.getElementById('score');
 const gameInfo = document.getElementById('gameInfo');
+const timeBar = document.getElementById('timeBar');
 
 // Set fixed canvas size
 const CANVAS_WIDTH = 800;
@@ -34,18 +33,26 @@ function startGame() {
     clickableObject.size = initialSize; // Reset size
     startScreen.classList.add('hidden');
     gameOverElement.classList.add('hidden');
-    canvas.classList.remove('hidden');
-    gameInfo.classList.remove('hidden');
-    gameInterval = setInterval(updateGame, 1000);
-    canvas.addEventListener('click', handleClick);
-    updateGameInfo();
-    drawObject();
+
+    const instructions = document.getElementById('instructions');
+    instructions.classList.remove('hidden');
+
+    setTimeout(() => {
+        instructions.classList.add('hidden');
+        canvas.classList.remove('hidden');
+        gameInfo.classList.remove('hidden');
+        gameInterval = setInterval(updateGame, 1000 / 30); // 30 FPS
+        canvas.addEventListener('click', handleClick);
+        updateGameInfo();
+        drawObject();
+    }, 5000);
 }
 
 function updateGame() {
     if (timeLeft > 0) {
-        timeLeft--;
+        timeLeft -= 1 / 30;
         updateGameInfo();
+        draw();
     } else {
         endGame();
     }
@@ -89,6 +96,7 @@ function moveObject() {
 
 function drawObject() {
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    drawScore();
     ctx.beginPath();
     ctx.arc(clickableObject.x, clickableObject.y, clickableObject.size, 0, Math.PI * 2);
     ctx.fillStyle = 'red';
@@ -98,9 +106,17 @@ function drawObject() {
     ctx.stroke();
 }
 
+function drawScore() {
+    ctx.font = "200px 'Comic Sans MS', cursive, sans-serif";
+    ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle"; // Align text vertically to the middle
+    ctx.fillText(score, canvas.width / 2, canvas.height / 2);
+}
+
 function updateGameInfo() {
-    timeLeftElement.textContent = `Time Left: ${timeLeft}`;
-    scoreElement.textContent = `Score: ${score}`;
+    const timePercentage = timeLeft / 30;
+    timeBar.style.transform = `scaleX(${timePercentage})`;
 }
 
 function restartGame() {

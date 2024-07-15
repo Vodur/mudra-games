@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const startScreen = document.getElementById('startScreen');
     const gameOverScreen = document.getElementById('gameOver');
     const finalScoreDisplay = document.getElementById('finalScore');
+    const instructions = document.getElementById('instructions');
 
     predefinedCanvas.width = drawingCanvas.width = 400;
     predefinedCanvas.height = drawingCanvas.height = 300;
@@ -47,17 +48,22 @@ document.addEventListener('DOMContentLoaded', () => {
         resetScore();
         startScreen.classList.add('hidden');
         gameOverScreen.classList.add('hidden');
-        gameContainer.classList.remove('hidden');
-        predefinedCanvas.classList.remove('hidden');
-        drawingCanvas.classList.remove('hidden');
-        submitDrawingBtn.classList.remove('hidden');
-        document.body.appendChild(submitDrawingBtn);
-        resetGame();
+        instructions.classList.remove('hidden');
+
+        setTimeout(() => {
+            instructions.classList.add('hidden');
+            gameContainer.classList.remove('hidden');
+            predefinedCanvas.classList.remove('hidden');
+            drawingCanvas.classList.remove('hidden');
+            submitDrawingBtn.classList.remove('hidden');
+            document.body.appendChild(submitDrawingBtn);
+            resetGame();
+        }, 3000);
     }
 
     function submitDrawing() {
         const score = calculateScore(predefinedCtx, drawingCtx);
-        finalScoreDisplay.textContent = `${score.toFixed(2)}%`;
+        finalScoreDisplay.textContent = isNaN(score) ? '0.00%' : `${score.toFixed(2)}%`;
         gameOverScreen.classList.remove('hidden');
         gameContainer.classList.add('hidden');
         predefinedCanvas.classList.add('hidden');
@@ -87,10 +93,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const predefinedImageData = predefinedCtx.getImageData(0, 0, predefinedCanvas.width, predefinedCanvas.height);
         const drawingImageData = drawingCtx.getImageData(0, 0, drawingCanvas.width, drawingCanvas.height);
 
-        let totalPixels = predefinedImageData.data.length / 4;
+        let totalPixels = predefinedCanvas.width * predefinedCanvas.height;
         let matchingPixels = 0;
         let predefinedPixels = 0;
         let drawingPixels = 0;
+
+        const tolerance = 10; // Tolerance for pixel matching
 
         for (let i = 0; i < predefinedImageData.data.length; i += 4) {
             const predefinedPixelAlpha = predefinedImageData.data[i + 3];
@@ -98,27 +106,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (predefinedPixelAlpha > 0) {
                 predefinedPixels++;
+                if (drawingPixelAlpha > 0) {
+                    const predefinedPixelR = predefinedImageData.data[i];
+                    const predefinedPixelG = predefinedImageData.data[i + 1];
+                    const predefinedPixelB = predefinedImageData.data[i + 2];
+                    const drawingPixelR = drawingImageData.data[i];
+                    const drawingPixelG = drawingImageData.data[i + 1];
+                    const drawingPixelB = drawingImageData.data[i + 2];
+
+                    const colorDifference = Math.abs(predefinedPixelR - drawingPixelR) +
+                        Math.abs(predefinedPixelG - drawingPixelG) +
+                        Math.abs(predefinedPixelB - drawingPixelB);
+
+                    if (colorDifference <= tolerance) {
+                        matchingPixels++;
+                    }
+                }
             }
+
             if (drawingPixelAlpha > 0) {
                 drawingPixels++;
             }
-            if (predefinedPixelAlpha > 0 && drawingPixelAlpha > 0) {
-                const colorDifference = Math.abs(predefinedImageData.data[i] - drawingImageData.data[i]) +
-                    Math.abs(predefinedImageData.data[i + 1] - drawingImageData.data[i + 1]) +
-                    Math.abs(predefinedImageData.data[i + 2] - drawingImageData.data[i + 2]);
-                if (colorDifference < 300) { // Increase tolerance for color difference
-                    matchingPixels++;
-                }
-            }
         }
 
+        // Increase leniency in scoring
         const matchScore = (matchingPixels / predefinedPixels) * 100;
         const coverageScore = (matchingPixels / drawingPixels) * 100;
-        const baseScore = 50; // Base score to ensure a decent score
+        const finalScore = (matchScore + coverageScore) / 2;
 
-        const finalScore = (matchScore + coverageScore) / 2 + baseScore;
-
-        return Math.min(finalScore, 100); // Ensure score does not exceed 100%
+        return Math.min(finalScore * 2, 100); // Ensure score does not exceed 100%
     }
 
     drawingCanvas.addEventListener('mousedown', () => {

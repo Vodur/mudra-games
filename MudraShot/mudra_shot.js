@@ -2,8 +2,7 @@ const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const startScreen = document.getElementById('startScreen');
 const gameOverElement = document.getElementById('gameOver');
-const winnerElement = document.getElementById('winner');
-const statsElement = document.getElementById('stats');
+const gameOverMessage = document.getElementById('gameOverMessage');
 
 let CANVAS_WIDTH = window.innerWidth * 0.8;
 let CANVAS_HEIGHT = window.innerHeight * 0.8;
@@ -216,30 +215,36 @@ let gameOver = false;
 
 function startGame(difficulty) {
     startScreen.classList.add('hidden');
-    canvas.classList.remove('hidden');
+    const instructions = document.getElementById('instructions');
+    instructions.classList.remove('hidden');
 
-    switch(difficulty) {
-        case 'easy':
-            enemySpeed = 2 * SPEED_SCALE;
-            enemyShootIntervalBase = 700;
-            break;
-        case 'medium':
-            enemySpeed = 4 * SPEED_SCALE;
-            enemyShootIntervalBase = 350;
-            break;
-        case 'hard':
-            enemySpeed = 6 * SPEED_SCALE;
-            enemyShootIntervalBase = 100;
-            break;
-    }
+    setTimeout(() => {
+        instructions.classList.add('hidden');
+        canvas.classList.remove('hidden');
 
-    player = new Player(canvas.width / 2, canvas.height - 30, 'blue');
-    enemy = new Enemy();
-    gameOver = false;
-    shots.length = 0;
-    enemyShots.length = 0;
-    explosions.length = 0;
-    gameLoop();
+        switch(difficulty) {
+            case 'easy':
+                enemySpeed = 2 * SPEED_SCALE;
+                enemyShootIntervalBase = 700;
+                break;
+            case 'medium':
+                enemySpeed = 4 * SPEED_SCALE;
+                enemyShootIntervalBase = 350;
+                break;
+            case 'hard':
+                enemySpeed = 6 * SPEED_SCALE;
+                enemyShootIntervalBase = 100;
+                break;
+        }
+
+        player = new Player(canvas.width / 2, canvas.height - 30, 'blue');
+        enemy = new Enemy();
+        gameOver = false;
+        shots.length = 0;
+        enemyShots.length = 0;
+        explosions.length = 0;
+        gameLoop();
+    }, 5000);
 }
 
 canvas.addEventListener('mousemove', (event) => {
@@ -285,8 +290,7 @@ function detectCollision(box1, box2) {
 
 function endGame(winner) {
     gameOver = true;
-    winnerElement.textContent = winner;
-    statsElement.textContent = `Player Health: ${player.health}, Enemy Health: ${enemy.health}`;
+    gameOverMessage.textContent = winner === 'Player' ? 'Winner winner chicken dinner!' : 'You will get him next time!';
     gameOverElement.classList.remove('hidden');
     canvas.classList.add('hidden');
 }

@@ -8,7 +8,7 @@
 </head>
 <body>
     <canvas id="gameCanvas" class="hidden"></canvas>
-    <div id="startScreen">
+    <div id="startScreen" class="visible">
         <h1>Mudra Shot</h1>
         <div>
             <button class="menuButton" onclick="startGame('easy')">Easy</button>
@@ -17,12 +17,17 @@
         </div>
     </div>
     <div id="gameOver" class="hidden">
-        <h1>Game Over</h1>
-        <p>Winner: <span id="winner">Player</span></p>
-        <p id="stats"></p>
+        <h1 id="gameOverMessage"></h1>
         <button class="menuButton" onclick="restartGame()">Play Again</button>
     </div>
     
+    <div id="instructions" class="hidden">
+        <h1>How to Play</h1>
+        <p>Move the mouse to move your player.</p>
+        <p>Click to shoot at the enemy.</p>
+        <p>Defeat the enemy to win!</p>
+    </div>
+
     <div id="menu">
         <div>
             <button id="mudraClickButton" class="menuButton" onclick="location.href='../MudraClick/mudra_click.html'">Mudra Click</button>

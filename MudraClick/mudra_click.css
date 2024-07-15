@@ -25,14 +25,27 @@ body {
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     color: #fff;
 }
 
-#startScreen, #gameOver {
+#timeBarContainer {
+    width: 800px;
+    height: 14px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    margin-top: 100px;
+    overflow: hidden;
+}
+
+#timeBar {
+    height: 100%;
+    background: #3498db;
+    width: 100%;
+    transform-origin: right;
+    transition: transform 0.03s linear;
+}
+
+#startScreen, #gameOver, #instructions {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -42,7 +55,6 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    transition: all 0.5s ease;
 }
 
 .hidden {
