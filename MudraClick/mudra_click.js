@@ -9,6 +9,7 @@ const finalScoreElement = document.getElementById('finalScore');
 const clickSound = document.getElementById('clickSound');
 const endSound = document.getElementById('endSound');
 const gameInfo = document.getElementById('gameInfo');
+const timeBarContainer = document.getElementById('timeBarContainer');
 const timeBar = document.getElementById('timeBar');
 
 // Set fixed canvas size
@@ -40,6 +41,7 @@ function startGame() {
     setTimeout(() => {
         instructions.classList.add('hidden');
         canvas.classList.remove('hidden');
+        timeBarContainer.classList.remove('hidden');
         gameInfo.classList.remove('hidden');
         gameInterval = setInterval(updateGame, 1000 / 30); // 30 FPS
         canvas.addEventListener('click', handleClick);
@@ -62,6 +64,7 @@ function endGame() {
     clearInterval(gameInterval);
     canvas.removeEventListener('click', handleClick);
     canvas.classList.add('hidden');
+    timeBarContainer.classList.add('hidden');
     gameInfo.classList.add('hidden');
     gameOverElement.classList.remove('hidden');
     finalScoreElement.textContent = score;
