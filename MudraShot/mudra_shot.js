@@ -19,6 +19,13 @@ let SHOT_SPEED = 10 * SPEED_SCALE;
 let playerHealth = 5;
 let enemySpeed = 4 * SPEED_SCALE;
 let enemyShootIntervalBase = 1000;
+let allowMenuHide = false; // Flag to control menu visibility
+
+// Show menu for 2 seconds then hide it and allow mouse to control it
+setTimeout(() => {
+	menu.style.bottom = '-70px';
+	allowMenuHide = true; // Enable menu hide by mouse movement
+}, 2000);
 
 class Player {
     constructor(x, y, color) {
@@ -358,5 +365,19 @@ function gameLoop() {
 
     requestAnimationFrame(gameLoop);
 }
+
+// Mouse position tracking for menu hover effect
+document.addEventListener('mousemove', (event) => {
+    if (!allowMenuHide) return; // Skip if not allowed to hide the menu
+
+    const menuRect = menu.getBoundingClientRect();
+    const distance = Math.abs(event.clientY - menuRect.top);
+    
+    if (distance < 80) { // Adjust the distance threshold as needed
+        menu.style.bottom = '0';
+    } else {
+        menu.style.bottom = '-70px'; // Ensure this matches the CSS value
+    }
+});
 
 gameLoop();

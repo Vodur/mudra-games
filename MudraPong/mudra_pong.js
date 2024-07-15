@@ -20,6 +20,13 @@ let ballSpeedY = -4;
 let score = 0;
 let isGameRunning = false;
 let isHighSpeed = false;
+let allowMenuHide = false; // Flag to control menu visibility
+
+// Show menu for 2 seconds then hide it and allow mouse to control it
+setTimeout(() => {
+	menu.style.bottom = '-70px';
+	allowMenuHide = true; // Enable menu hide by mouse movement
+}, 2000);
 
 document.addEventListener('mousemove', movePaddle);
 canvas.addEventListener('click', toggleSpeed);
@@ -149,3 +156,17 @@ function restartGame() {
 }
 
 document.getElementById('startButton').addEventListener('click', showInstructions);
+
+// Mouse position tracking for menu hover effect
+document.addEventListener('mousemove', (event) => {
+    if (!allowMenuHide) return; // Skip if not allowed to hide the menu
+
+    const menuRect = menu.getBoundingClientRect();
+    const distance = Math.abs(event.clientY - menuRect.top);
+    
+    if (distance < 80) { // Adjust the distance threshold as needed
+        menu.style.bottom = '0';
+    } else {
+        menu.style.bottom = '-70px'; // Ensure this matches the CSS value
+    }
+});

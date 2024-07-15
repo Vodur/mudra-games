@@ -1,6 +1,7 @@
 let score = 0;
 let gameInterval;
 let timeLeft = 30;
+let allowMenuHide = false; // Flag to control menu visibility
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const startScreen = document.getElementById('startScreen');
@@ -11,6 +12,7 @@ const endSound = document.getElementById('endSound');
 const gameInfo = document.getElementById('gameInfo');
 const timeBarContainer = document.getElementById('timeBarContainer');
 const timeBar = document.getElementById('timeBar');
+const menu = document.getElementById('menu');
 
 // Set fixed canvas size
 const CANVAS_WIDTH = 800;
@@ -28,12 +30,19 @@ const clickableObject = {
     size: initialSize
 };
 
+// Show menu for 2 seconds then hide it and allow mouse to control it
+setTimeout(() => {
+	menu.style.bottom = '-70px';
+	allowMenuHide = true; // Enable menu hide by mouse movement
+}, 2000);
+
 function startGame() {
     score = 0;
     timeLeft = 30;
     clickableObject.size = initialSize; // Reset size
     startScreen.classList.add('hidden');
     gameOverElement.classList.add('hidden');
+    menu.style.bottom = '0';
 
     const instructions = document.getElementById('instructions');
     instructions.classList.remove('hidden');
@@ -69,6 +78,8 @@ function endGame() {
     gameOverElement.classList.remove('hidden');
     finalScoreElement.textContent = score;
     endSound.play();
+    menu.classList.remove('hidden');
+    allowMenuHide = false; // Disable menu hide by mouse movement on game end
 }
 
 function handleClick(event) {
@@ -128,3 +139,17 @@ function restartGame() {
 }
 
 document.getElementById('startButton').addEventListener('click', startGame);
+
+// Mouse position tracking for menu hover effect
+document.addEventListener('mousemove', (event) => {
+    if (!allowMenuHide) return; // Skip if not allowed to hide the menu
+
+    const menuRect = menu.getBoundingClientRect();
+    const distance = Math.abs(event.clientY - menuRect.top);
+    
+    if (distance < 80) { // Adjust the distance threshold as needed
+        menu.style.bottom = '0';
+    } else {
+        menu.style.bottom = '-70px'; // Ensure this matches the CSS value
+    }
+});
