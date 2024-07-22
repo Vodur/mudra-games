@@ -5,9 +5,9 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(180deg, #0c1e50, #da2438);
+    background-image: linear-gradient(to left bottom, #030620, #030620, #030620, #030620, #030620, #030620, #030620, #030620, #030620, #030620, #030620, #030620, #071140, #091b49, #0c2a56, #133f67, #316480, #5d8996);
     flex-direction: column;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif; /* Set font to Poppins */
     color: white;
     text-align: center;
     position: relative;
@@ -46,6 +46,7 @@ body {
 
 #menu {
     position: absolute;
+	width: max-content;
     bottom: 0; /* Initially show the menu */
     left: 50%;
     transform: translateX(-50%);

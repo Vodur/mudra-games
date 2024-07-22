@@ -1,0 +1,66 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mudra Tower</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+    <link rel="stylesheet" href="mudra_tower.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="timeBarContainer" class="hidden">
+            <div id="timeBar"></div>
+        </div>
+        <div
+            style="
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                color: white;
+                padding: 8px;
+                font-family: 'Poppins', sans-serif;
+                font-size: 14px;
+                user-select: none;
+            "
+        >
+            <span>Score: <span id="scoreEl">0</span></span>
+        </div>
+        <canvas id="gameCanvas" class="hidden"></canvas>
+    </div>
+    <div id="gameInfo" class="hidden"></div>
+    <div id="startScreen">
+        <h1>Mudra Tower</h1>
+        <button class="menuButton" id="startButton">Start Game</button>
+    </div>
+    <div id="gameOver" class="hidden">
+        <h1>Game Over</h1>
+        <p>Score: <span id="finalScore">0</span></p>
+        <button class="menuButton" onclick="restartGame()">Play Again</button>
+    </div>
+    
+    <div id="instructions" class="hidden">
+        <h1>How to Play</h1>
+        <p>Aim and click to shoot at enemies spawning.</p>
+        <p>Survive as long as you can.</p>
+    </div>
+	
+    <div id="menu">
+        <div>
+            <button id="mudraClickButton" class="menuButton" onclick="location.href='../MudraClick/mudra_click.html'">Mudra Click</button>
+            <button id="mudraDrawMatchButton" class="menuButton" onclick="location.href='../MudraDrawMatch/mudra_draw_match.html'">Mudra Draw Match</button>
+            <button id="mudraPongButton" class="menuButton" onclick="location.href='../MudraPong/mudra_pong.html'">Mudra Pong</button>
+            <button id="mudraShotButton" class="menuButton" onclick="location.href='../MudraShot/mudra_shot.html'">Mudra Shot</button>
+            <button id="mudraTowerButton" class="menuButton" onclick="location.href='../MudraTower/mudra_tower.html'">Mudra Tower</button>
+        </div>
+    </div>
+	<script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.2/gsap.min.js"
+      integrity="sha512-kVlGhj2qFy+KBCFuvjBJTGUMxbdqJKs4yK2jh0e0VPhWUPiPC87bzm4THmaaIee3Oj7j6sDpTTgm2EPPiESqBg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="mudra_tower.js"></script>
+    <script>
+        document.getElementById('mudraTowerButton').classList.add('active');
+    </script>
+</body>
+</html>
