@@ -248,9 +248,12 @@ function showInstructions() {
 function startGame() {
     gameOverScreen.classList.add('hidden');
     canvas.classList.remove('hidden');
-    score = 0;
     scoreEl.textContent = score;
     isGameRunning = true;
+	projectiles.length = 0
+	enemies.length = 0
+	particles.length = 0
+	score = 0
     animate()
     spawnEnemies()
 }
@@ -260,6 +263,9 @@ function gameOver() {
     canvas.classList.add('hidden');
     gameOverScreen.classList.remove('hidden');
     finalScoreDisplay.textContent = score;
+	projectiles.length = 0
+	enemies.length = 0
+	particles.length = 0
 }
 
 function restartGame() {
