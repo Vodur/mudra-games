@@ -178,7 +178,7 @@ function draw() {
     drawBullets();
     drawEnemyBullets();
     ctx.fillStyle = 'white';
-    ctx.font = '20px Arial';
+    ctx.font = '20px "Poppins", sans-serif';
     ctx.fillText('Score: ' + score, 10, 20);
 }
 

@@ -5,7 +5,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: linear-gradient(to left bottom, #030620, #030620, #030620, #030620, #030620, #030620, #030620, #030620, #030620, #030620, #030620, #030620, #071140, #091b49, #0c2a56, #133f67, #316480, #5d8996);
+    background-image: linear-gradient(to left bottom, #000000, #000000, #000000, #000000, #010314, #010314, #010314, #010314, #010314, #010314, #010314, #010314, #0d1136, #111439, #1a1e42, #222545, #2c2e4b, #3e4055);
     flex-direction: column;
     font-family: 'Poppins', sans-serif; /* Set font to Poppins */
     color: white;
