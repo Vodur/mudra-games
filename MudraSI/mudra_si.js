@@ -6,8 +6,8 @@ const finalScoreElement = document.getElementById('finalScore');
 const instructions = document.getElementById('instructions');
 const menu = document.getElementById('menu');
 
-canvas.width = window.innerWidth * 0.8;
-canvas.height = window.innerHeight * 0.8;
+canvas.width = window.innerWidth * 0.9;
+canvas.height = window.innerHeight * 0.9;
 
 let player, enemies = [], bullets = [], enemyBullets = [];
 let score = 0;
@@ -35,8 +35,8 @@ function setup() {
     for (let i = 0; i < 5; i++) {
         for (let j = 0; j < 11; j++) {
             enemies.push({
-                x: 100 + j * 80,
-                y: 50 + i * 80,
+                x: 50 + j * 60, // Reduced spacing between enemies horizontally
+                y: 30 + i * 60, // Reduced spacing between enemies vertically
                 width: 40,
                 height: 40,
                 dx: 2
@@ -224,7 +224,6 @@ function endGame() {
     gameOverElement.classList.remove('hidden');
     finalScoreElement.textContent = score;
     menu.classList.remove('hidden');
-    allowMenuHide = false; // Disable menu hide by mouse movement on game end
 }
 
 function restartGame() {
