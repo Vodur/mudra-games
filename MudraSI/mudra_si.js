@@ -6,8 +6,8 @@ const finalScoreElement = document.getElementById('finalScore');
 const instructions = document.getElementById('instructions');
 const menu = document.getElementById('menu');
 
-canvas.width = window.innerWidth * 0.9;
-canvas.height = window.innerHeight * 0.9;
+canvas.width = window.innerWidth * 0.8;
+canvas.height = window.innerHeight * 0.8;
 
 let player, enemies = [], bullets = [], enemyBullets = [];
 let score = 0;
