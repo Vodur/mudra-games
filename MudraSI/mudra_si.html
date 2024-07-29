@@ -3,32 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mudra Pong</title>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
-    <link rel="stylesheet" href="mudra_pong.css">
+    <title>Space Invaders</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+    <link rel="stylesheet" href="mudra_si.css">
 </head>
 <body>
-    <canvas id="gameCanvas" class="hidden"></canvas>
-    <div id="gameInfo" class="hidden">
-        <p id="scoreDisplay">Score: <span id="score">0</span></p>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" class="hidden"></canvas>
     </div>
     <div id="startScreen">
-        <h1>Mudra Pong</h1>
-        <div>
-            <button class="menuButton" id="startButton">Start Game</button>
-        </div>
-    </div>
-    <div id="instructions" class="hidden">
-        <h1>How to Play</h1>
-        <p>Use your mouse to move the paddle left and right.</p>
-        <p>Try to keep the ball in play and score as many points as possible.</p>
+        <h1>Space Invaders</h1>
+        <button class="menuButton" id="startButton">Start Game</button>
     </div>
     <div id="gameOver" class="hidden">
         <h1>Game Over</h1>
         <p>Score: <span id="finalScore">0</span></p>
-        <button class="menuButton" onclick="restartGame()">Play Again</button>
+        <button class="menuButton" id="restartButton">Play Again</button>
     </div>
-    
+    <div id="instructions" class="hidden">
+        <h1>How to Play</h1>
+        <p>Move the player left and right using the mouse.</p>
+        <p>Shoot the enemies by clicking on the canvas.</p>
+        <p>Score points by hitting the enemies. Avoid enemy bullets!</p>
+    </div>
     <div id="menu">
         <div>
             <button id="mudraClickButton" class="menuButton" onclick="location.href='../MudraClick/mudra_click.html'">Mudra Click</button>
@@ -39,11 +36,10 @@
             <button id="mudraSpaceInvadersButton" class="menuButton" onclick="location.href='../MudraSI/mudra_si.html'">Mudra Space Invaders</button>
         </div>
     </div>
-
-    <script src="mudra_pong.js"></script>
+    <script src="mudra_si.js"></script>
     <script>
         // Highlight the active game
-        document.getElementById('mudraPongButton').classList.add('active');
+        document.getElementById('mudraSpaceInvadersButton').classList.add('active');
     </script>
 </body>
 </html>
